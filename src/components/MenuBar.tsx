@@ -51,6 +51,7 @@ interface MenuBarProps {
   onToggleAIAssistant: () => void;
   onOpenAISettings: () => void;
   onToggleCopilot?: () => void;
+  onSaveAs?: () => void;
 }
 
 export const MenuBar: React.FC<MenuBarProps> = ({
@@ -98,6 +99,7 @@ export const MenuBar: React.FC<MenuBarProps> = ({
   onToggleAIAssistant,
   onOpenAISettings,
   onToggleCopilot,
+  onSaveAs,
 }) => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const menuBarRef = useRef<HTMLDivElement>(null);
@@ -156,11 +158,15 @@ export const MenuBar: React.FC<MenuBarProps> = ({
             </button>
             <div className="my-1 border-t border-gray-200 dark:border-gray-700" />
             <button onClick={() => handleItemClick(onSave)} className="w-full flex items-center justify-between px-3 py-1 hover:bg-[#316AC5] hover:text-white dark:hover:bg-[#2563EB] text-left">
-              <span className="flex items-center gap-2"><Save className="w-3.5 h-3.5" /> Save</span>
+              <span className="flex items-center gap-2"><Save className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> Save (Local Disk)</span>
               <span className="text-gray-400 dark:text-gray-500 text-[10px]">Ctrl+S</span>
             </button>
+            <button onClick={() => handleItemClick(() => { if (onSaveAs) onSaveAs(); else onSave(); })} className="w-full flex items-center justify-between px-3 py-1 hover:bg-[#316AC5] hover:text-white dark:hover:bg-[#2563EB] text-left">
+              <span className="flex items-center gap-2"><Save className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" /> Save As... (Local Disk)</span>
+              <span className="text-gray-400 dark:text-gray-500 text-[10px]">Ctrl+Alt+S</span>
+            </button>
             <button onClick={() => handleItemClick(onSaveAll)} className="w-full flex items-center justify-between px-3 py-1 hover:bg-[#316AC5] hover:text-white dark:hover:bg-[#2563EB] text-left">
-              <span className="flex items-center gap-2"><Save className="w-3.5 h-3.5" /> Save All</span>
+              <span className="flex items-center gap-2"><Save className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" /> Save All to Local Disk</span>
               <span className="text-gray-400 dark:text-gray-500 text-[10px]">Ctrl+Shift+S</span>
             </button>
             <div className="my-1 border-t border-gray-200 dark:border-gray-700" />

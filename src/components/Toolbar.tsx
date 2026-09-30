@@ -11,6 +11,7 @@ interface ToolbarProps {
   onNew: () => void;
   onOpen: () => void;
   onSave: () => void;
+  onSaveAs: () => void;
   onSaveAll: () => void;
   onClose: () => void;
   onCloseAll: () => void;
@@ -52,6 +53,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   onNew,
   onOpen,
   onSave,
+  onSaveAs,
   onSaveAll,
   onClose,
   onCloseAll,
@@ -109,15 +111,23 @@ export const Toolbar: React.FC<ToolbarProps> = ({
 
       <button 
         onClick={onSave} 
-        title="Save (Ctrl+S)" 
+        title="Save to Local Disk (Ctrl+S)" 
         className="p-1 hover:bg-[#D4D0C8] dark:hover:bg-[#2D3748] rounded active:scale-95 transition-transform"
       >
         <Save className="w-4 h-4 text-[#059669] dark:text-[#34D399]" />
       </button>
 
       <button 
+        onClick={onSaveAs} 
+        title="Save As to Local Disk... (Ctrl+Alt+S / F12)" 
+        className="p-1 hover:bg-[#D4D0C8] dark:hover:bg-[#2D3748] rounded active:scale-95 transition-transform"
+      >
+        <Download className="w-4 h-4 text-[#0D9488] dark:text-[#2DD4BF]" />
+      </button>
+
+      <button 
         onClick={onSaveAll} 
-        title="Save All (Ctrl+Shift+S)" 
+        title="Save All to Local Disk (Ctrl+Shift+S)" 
         className="p-1 hover:bg-[#D4D0C8] dark:hover:bg-[#2D3748] rounded active:scale-95 transition-transform"
       >
         <Layers className="w-4 h-4 text-[#059669] dark:text-[#34D399]" />

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Plus, X, ChevronLeft, ChevronRight, Save, Copy, Columns, ArrowRightLeft, Edit3 } from 'lucide-react';
+import { Plus, X, ChevronLeft, ChevronRight, Save, Copy, Columns, ArrowRightLeft, Edit3, Download } from 'lucide-react';
 import { DocumentFile } from '../types';
 
 interface TabBarProps {
@@ -12,7 +12,7 @@ interface TabBarProps {
   onCloseOthers: (id: string) => void;
   onCloseToRight: (id: string) => void;
   onRenameTab: (id: string, newName: string) => void;
-  onSaveTab: (id: string) => void;
+  onSaveTab: (id: string, saveAs?: boolean) => void;
 }
 
 export const TabBar: React.FC<TabBarProps> = ({
@@ -251,13 +251,24 @@ export const TabBar: React.FC<TabBarProps> = ({
 
           <button
             onClick={() => {
-              onSaveTab(contextMenu.docId);
+              onSaveTab(contextMenu.docId, false);
               setContextMenu(null);
             }}
             className="w-full flex items-center gap-2 px-3 py-1 hover:bg-[#316AC5] hover:text-white dark:hover:bg-[#2563EB] text-left"
           >
             <Save className="w-3.5 h-3.5 text-green-600" />
-            <span>Save</span>
+            <span>Save to Local File</span>
+          </button>
+
+          <button
+            onClick={() => {
+              onSaveTab(contextMenu.docId, true);
+              setContextMenu(null);
+            }}
+            className="w-full flex items-center gap-2 px-3 py-1 hover:bg-[#316AC5] hover:text-white dark:hover:bg-[#2563EB] text-left"
+          >
+            <Download className="w-3.5 h-3.5 text-teal-600" />
+            <span>Save As to Local Disk...</span>
           </button>
 
           <button

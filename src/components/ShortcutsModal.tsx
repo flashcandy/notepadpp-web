@@ -11,12 +11,13 @@ export const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ isOpen, onClose 
 
   const shortcutGroups = [
     {
-      title: 'File Operations',
+      title: 'File Operations (Local Disk)',
       items: [
         { key: 'Ctrl + N', desc: 'Create new document' },
-        { key: 'Ctrl + O', desc: 'Open file from computer' },
-        { key: 'Ctrl + S', desc: 'Save current document' },
-        { key: 'Ctrl + Shift + S', desc: 'Save all documents' },
+        { key: 'Ctrl + O', desc: 'Open file from local computer' },
+        { key: 'Ctrl + S', desc: 'Save active file to local disk' },
+        { key: 'Ctrl + Alt + S / F12', desc: 'Save As to local disk (Pick location & name)' },
+        { key: 'Ctrl + Shift + S', desc: 'Save all open documents to local disk' },
         { key: 'Ctrl + W', desc: 'Close active document tab' },
         { key: 'Ctrl + P', desc: 'Print document' },
       ],

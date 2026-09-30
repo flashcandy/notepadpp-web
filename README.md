@@ -27,6 +27,10 @@
 * 🗂️ **Multi-Tab Document Editing**: Seamlessly open, edit, reorder, clone, and close multiple documents.
 * 🌓 **Split Dual View**: Side-by-side dual-pane editing (`Ctrl+Alt+S`) for comparing and working across files.
 * 📂 **Drag & Drop File Loading**: Drag any files or code snippets directly from your desktop into the app.
+* 💾 **Local File Saving (`Ctrl+S` / `Ctrl+Alt+S` / `F12`)**:
+  - **Native Save As Dialog**: Uses the modern browser File System Access API (`showSaveFilePicker`) to let you pick any local directory on your computer (`C:\...`, Desktop, etc.).
+  - **Universal Fallback**: Automatic instant direct download fallback if native picker permissions are not enabled.
+  - **Save All**: Save all open workspace tabs to local disk simultaneously (`Ctrl+Shift+S`).
 * 💾 **Persistent Auto-Save**: Your open tabs and workspace state survive browser restarts and page refreshes.
 * 🎨 **Authentic Themes**:
   - 🏛️ **Notepad++ Classic** (nostalgic Windows XP / 7 style)

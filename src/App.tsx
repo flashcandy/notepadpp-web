@@ -35,7 +35,7 @@ import { AISettingsModal } from './components/AISettingsModal';
 import { CopilotBar } from './components/CopilotBar';
 
 import { 
-  FileCode, Menu, Plus, Upload, Columns, Play, Download, WifiOff, X, Sparkles
+  FileCode, Menu, Plus, Upload, Columns, Play, Download, WifiOff, X, Sparkles, Save
 } from 'lucide-react';
 
 export default function App() {
@@ -53,6 +53,7 @@ export default function App() {
   const [isDraggingOverWindow, setIsDraggingOverWindow] = useState<boolean>(false);
   const [insertMode, setInsertMode] = useState<'INS' | 'OVR'>('INS');
   const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // AI Assistant & Copilot State
   const [isAIAssistantOpen, setIsAIAssistantOpen] = useState<boolean>(false);
@@ -239,15 +240,20 @@ export default function App() {
         e.preventDefault();
         handleNewDocument();
       }
-      // Ctrl+S / Cmd+S
+      // Ctrl+S / Cmd+S (Save active document to local disk)
       else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's' && !e.shiftKey && !e.altKey) {
         e.preventDefault();
-        handleSaveDocument(activeTabId);
+        handleSaveDocument(activeTabId, false);
       }
-      // Ctrl+Shift+S
+      // F12 or Ctrl+Alt+S (Save As to local disk)
+      else if (e.key === 'F12' || ((e.ctrlKey || e.metaKey) && e.altKey && e.key.toLowerCase() === 's')) {
+        e.preventDefault();
+        handleSaveDocument(activeTabId, true);
+      }
+      // Ctrl+Shift+S (Save all to local disk)
       else if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 's') {
         e.preventDefault();
-        handleSaveAllDocuments();
+        handleSaveAllLocalDocuments();
       }
       // Ctrl+W / Cmd+W (close tab)
       else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'w' && !e.shiftKey) {
@@ -271,8 +277,8 @@ export default function App() {
         e.preventDefault();
         setIsLivePreviewOpen(true);
       }
-      // Ctrl+Alt+S (Split view)
-      else if ((e.ctrlKey || e.metaKey) && e.altKey && e.key.toLowerCase() === 's') {
+      // Ctrl+Alt+V (Split view)
+      else if ((e.ctrlKey || e.metaKey) && e.altKey && e.key.toLowerCase() === 'v') {
         e.preventDefault();
         handleToggleSplitView();
       }
@@ -384,16 +390,88 @@ export default function App() {
     });
   };
 
-  const handleSaveDocument = (docId: string) => {
-    setDocuments(prev =>
-      prev.map(d => (d.id === docId ? { ...d, isDirty: false, updatedAt: Date.now() } : d))
-    );
+  const showToast = (message: string) => {
+    setToastMessage(message);
+    setTimeout(() => {
+      setToastMessage(prev => (prev === message ? null : prev));
+    }, 3200);
   };
 
-  const handleSaveAllDocuments = () => {
+  // Save to Local Disk (Uses native File System Access API dialog or falls back to direct download)
+  const handleSaveLocalFile = async (doc: DocumentFile, forceSaveAs: boolean = false) => {
+    // If native File System Access API is supported
+    if ('showSaveFilePicker' in window) {
+      try {
+        const ext = doc.name.includes('.') ? '.' + doc.name.split('.').pop() : '.txt';
+        const options: any = {
+          suggestedName: doc.name,
+          types: [
+            {
+              description: `${doc.language.toUpperCase()} file (*${ext})`,
+              accept: {
+                'text/plain': [ext, '.txt'],
+              },
+            },
+          ],
+        };
+
+        const handle = await (window as any).showSaveFilePicker(options);
+        const writable = await handle.createWritable();
+        await writable.write(doc.content);
+        await writable.close();
+
+        const savedName = handle.name || doc.name;
+        const langObj = getLanguageByFilename(savedName);
+
+        setDocuments(prev =>
+          prev.map(d =>
+            d.id === doc.id
+              ? { ...d, name: savedName, language: langObj.id, isDirty: false, updatedAt: Date.now() }
+              : d
+          )
+        );
+
+        showToast(`Saved "${savedName}" to local disk successfully!`);
+        return;
+      } catch (err: any) {
+        if (err.name === 'AbortError') {
+          // User intentionally cancelled the save dialog
+          return;
+        }
+        console.warn('File System Access API not permitted, falling back to download:', err);
+      }
+    }
+
+    // Direct browser local download fallback (works in 100% of browsers)
+    handleDownloadFile(doc);
+    setDocuments(prev =>
+      prev.map(d => (d.id === doc.id ? { ...d, isDirty: false, updatedAt: Date.now() } : d))
+    );
+    showToast(`Saved "${doc.name}" to your local computer!`);
+  };
+
+  const handleSaveDocument = (docId: string, saveAs: boolean = false) => {
+    const doc = documents.find(d => d.id === docId) || activeDocument;
+    if (doc) {
+      handleSaveLocalFile(doc, saveAs);
+    }
+  };
+
+  const handleSaveAllLocalDocuments = () => {
+    documents.forEach((doc, idx) => {
+      setTimeout(() => {
+        handleDownloadFile(doc);
+      }, idx * 120);
+    });
+
     setDocuments(prev =>
       prev.map(d => ({ ...d, isDirty: false, updatedAt: Date.now() }))
     );
+    showToast(`Saved all ${documents.length} open files to local disk!`);
+  };
+
+  const handleSaveAllDocuments = () => {
+    handleSaveAllLocalDocuments();
   };
 
   const handleCloseTab = (idToClose: string, e?: React.MouseEvent) => {
@@ -778,8 +856,9 @@ export default function App() {
         <MenuBar
           onNew={handleNewDocument}
           onOpen={handleOpenFilePicker}
-          onSave={() => handleSaveDocument(activeTabId)}
-          onSaveAll={handleSaveAllDocuments}
+          onSave={() => handleSaveDocument(activeTabId, false)}
+          onSaveAs={() => handleSaveDocument(activeTabId, true)}
+          onSaveAll={handleSaveAllLocalDocuments}
           onCloseCurrent={() => handleCloseTab(activeTabId)}
           onCloseAll={() => {
             handleNewDocument();
@@ -842,8 +921,9 @@ export default function App() {
       <Toolbar
         onNew={handleNewDocument}
         onOpen={handleOpenFilePicker}
-        onSave={() => handleSaveDocument(activeTabId)}
-        onSaveAll={handleSaveAllDocuments}
+        onSave={() => handleSaveDocument(activeTabId, false)}
+        onSaveAs={() => handleSaveDocument(activeTabId, true)}
+        onSaveAll={handleSaveAllLocalDocuments}
         onClose={() => handleCloseTab(activeTabId)}
         onCloseAll={() => {
           handleNewDocument();
@@ -1112,6 +1192,14 @@ export default function App() {
         hasServerGeminiKey={hasServerGeminiKey}
         hasServerOpenRouterKey={hasServerOpenRouterKey}
       />
+
+      {/* Save to Local Disk Notification Toast */}
+      {toastMessage && (
+        <div className="fixed bottom-9 right-6 z-50 flex items-center gap-2.5 bg-[#1A2230] text-white px-4 py-2.5 rounded-lg shadow-2xl border border-emerald-500/80 text-xs font-sans animate-in fade-in slide-in-from-bottom-3 duration-200">
+          <Save className="w-4 h-4 text-emerald-400 shrink-0" />
+          <span className="font-medium">{toastMessage}</span>
+        </div>
+      )}
     </div>
   );
 }
