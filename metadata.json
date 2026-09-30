@@ -1,0 +1,6 @@
+{
+  "name": "Notepad++ Web",
+  "description": "A powerful web-based Notepad++ clone featuring Monaco Editor, multi-tab editing, persistent storage, syntax highlighting, drag-and-drop file loading, split-view, and PWA support.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

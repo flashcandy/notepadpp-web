@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141E30" />
+      <stop offset="100%" stop-color="#243B55" />
+    </linearGradient>
+    <linearGradient id="padGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#F0F4F8" />
+    </linearGradient>
+    <linearGradient id="chamGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#55E678" />
+      <stop offset="50%" stop-color="#2BB656" />
+      <stop offset="100%" stop-color="#12833B" />
+    </linearGradient>
+    <linearGradient id="penGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD166" />
+      <stop offset="100%" stop-color="#F77F00" />
+    </linearGradient>
+    <filter id="dropShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000" flood-opacity="0.45" />
+    </filter>
+  </defs>
+
+  <!-- Background rounded squircle with safe-zone margin -->
+  <rect x="24" y="24" width="464" height="464" rx="108" fill="url(#bgGrad)" />
+  <rect x="24" y="24" width="464" height="464" rx="108" fill="none" stroke="#48BB78" stroke-width="3" stroke-opacity="0.3" />
+
+  <!-- Notepad Document -->
+  <g filter="url(#dropShadow)">
+    <!-- Base Paper -->
+    <path d="M 120 110 C 120 95, 130 85, 145 85 L 340 85 C 355 85, 395 125, 395 140 L 395 400 C 395 415, 383 425, 368 425 L 145 425 C 130 425, 120 415, 120 400 Z" fill="url(#padGrad)" />
+    <!-- Folded Corner -->
+    <path d="M 340 85 L 340 130 C 340 140, 350 140, 395 140 Z" fill="#CBD5E1" opacity="0.9" />
+    <!-- Spiral Rings / Notepad header banner -->
+    <rect x="120" y="85" width="275" height="28" rx="6" fill="#0E7490" />
+    <circle cx="160" cy="99" r="6" fill="#FFFFFF" />
+    <circle cx="210" cy="99" r="6" fill="#FFFFFF" />
+    <circle cx="260" cy="99" r="6" fill="#FFFFFF" />
+    <circle cx="310" cy="99" r="6" fill="#FFFFFF" />
+
+    <!-- Notepad ruled code lines -->
+    <rect x="155" y="150" width="130" height="10" rx="5" fill="#94A3B8" opacity="0.6" />
+    <rect x="155" y="175" width="200" height="10" rx="5" fill="#CBD5E1" opacity="0.8" />
+    <rect x="175" y="200" width="160" height="10" rx="5" fill="#CBD5E1" opacity="0.7" />
+    <rect x="175" y="225" width="190" height="10" rx="5" fill="#CBD5E1" opacity="0.7" />
+    <rect x="155" y="250" width="120" height="10" rx="5" fill="#CBD5E1" opacity="0.6" />
+    <rect x="155" y="275" width="180" height="10" rx="5" fill="#CBD5E1" opacity="0.5" />
+  </g>
+
+  <!-- The Iconic Chameleon -->
+  <g filter="url(#dropShadow)">
+    <!-- Curled Tail -->
+    <path d="M 180 370 C 140 370, 110 330, 120 290 C 128 260, 160 260, 165 285 C 168 300, 150 315, 140 310 C 135 305, 132 290, 140 285" fill="none" stroke="#2BB656" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" />
+
+    <!-- Chameleon Body -->
+    <path d="M 160 350 C 160 290, 200 240, 265 240 C 310 240, 350 260, 375 295 C 385 308, 385 325, 370 338 C 345 360, 310 370, 250 370 C 210 370, 175 365, 160 350 Z" fill="url(#chamGrad)" />
+
+    <!-- Ridge Scales on Back -->
+    <polygon points="210,248 220,234 230,250" fill="#12833B" />
+    <polygon points="235,243 245,229 255,245" fill="#12833B" />
+    <polygon points="260,240 270,226 280,242" fill="#12833B" />
+    <polygon points="285,242 295,228 305,244" fill="#12833B" />
+    <polygon points="310,248 320,234 330,252" fill="#12833B" />
+
+    <!-- Chameleon Head & Snout -->
+    <path d="M 330 270 C 350 250, 390 260, 405 280 C 418 296, 415 320, 395 330 C 375 340, 355 330, 340 310 Z" fill="url(#chamGrad)" />
+    
+    <!-- Big Expressive Chameleon Eye -->
+    <circle cx="370" cy="285" r="22" fill="#38A169" />
+    <circle cx="370" cy="285" r="16" fill="#F6E05E" />
+    <circle cx="373" cy="283" r="8" fill="#1A202C" />
+    <circle cx="376" cy="280" r="3" fill="#FFFFFF" />
+
+    <!-- Front & Back Claws gripping the pen -->
+    <!-- Back Foot -->
+    <ellipse cx="210" cy="365" rx="14" ry="9" fill="#1E824C" />
+    <!-- Front Foot -->
+    <ellipse cx="320" cy="355" rx="14" ry="9" fill="#1E824C" />
+  </g>
+
+  <!-- Stylized Fountain Pen / Perch -->
+  <g filter="url(#dropShadow)">
+    <line x1="100" y1="380" x2="420" y2="340" stroke="url(#penGrad)" stroke-width="16" stroke-linecap="round" />
+    <!-- Metal Nib -->
+    <polygon points="420,340 455,335 435,355" fill="#E2E8F0" />
+    <line x1="420" y1="340" x2="445" y2="345" stroke="#475569" stroke-width="2" />
+  </g>
+
+  <!-- Iconic "++" Badge -->
+  <g filter="url(#dropShadow)">
+    <!-- Red ++ Badge Pill in top right -->
+    <rect x="290" y="38" width="170" height="76" rx="38" fill="#EF4444" />
+    <rect x="290" y="38" width="170" height="76" rx="38" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-opacity="0.8" />
+    <!-- White plus symbols -->
+    <path d="M 332 58 L 344 58 L 344 70 L 356 70 L 356 82 L 344 82 L 344 94 L 332 94 L 332 82 L 320 82 L 320 70 L 332 70 Z" fill="#FFFFFF" />
+    <path d="M 396 58 L 408 58 L 408 70 L 420 70 L 420 82 L 408 82 L 408 94 L 396 94 L 396 82 L 384 82 L 384 70 L 396 70 Z" fill="#FFFFFF" />
+  </g>
+</svg>
