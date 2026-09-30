@@ -220,54 +220,54 @@ export const CopilotBar: React.FC<CopilotBarProps> = ({
 
       {/* Expanded Interactive Area */}
       {isExpanded && (
-        <div className="p-3 space-y-2.5">
+        <div className="p-2 sm:p-3 space-y-2 sm:space-y-2.5">
           {/* Quick Action Pills for Document Analysis & Generation */}
-          <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
-            <span className="text-slate-500 dark:text-slate-400 font-medium mr-0.5">Quick Actions:</span>
+          <div className="flex flex-wrap items-center gap-1 sm:gap-1.5 text-[10px] sm:text-[11px]">
+            <span className="hidden xs:inline text-slate-500 dark:text-slate-400 font-medium mr-0.5">Quick Actions:</span>
             <button
               onClick={() => handleExecute('analyze', 'Analyze open document for bugs, architecture, and improvements')}
               disabled={isLoading}
-              className="px-2 py-1 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-950/40 border border-slate-300 dark:border-slate-700 hover:border-blue-400 text-slate-700 dark:text-slate-200 rounded flex items-center gap-1 shadow-xs transition-colors"
+              className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-950/40 border border-slate-300 dark:border-slate-700 hover:border-blue-400 text-slate-700 dark:text-slate-200 rounded flex items-center gap-1 shadow-xs transition-colors"
             >
-              <Zap className="w-3 h-3 text-amber-500" />
-              <span>Analyze Document</span>
+              <Zap className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-500" />
+              <span>Analyze</span>
             </button>
             <button
               onClick={() => handleExecute('fix', 'Find and fix all bugs, edge cases, and runtime issues in this code')}
               disabled={isLoading}
-              className="px-2 py-1 bg-white dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 border border-slate-300 dark:border-slate-700 hover:border-emerald-400 text-slate-700 dark:text-slate-200 rounded flex items-center gap-1 shadow-xs transition-colors"
+              className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-white dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 border border-slate-300 dark:border-slate-700 hover:border-emerald-400 text-slate-700 dark:text-slate-200 rounded flex items-center gap-1 shadow-xs transition-colors"
             >
-              <Bug className="w-3 h-3 text-emerald-500" />
+              <Bug className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-500" />
               <span>Fix Bugs</span>
             </button>
             <button
               onClick={() => handleExecute('test', 'Generate comprehensive runnable unit tests for this document')}
               disabled={isLoading}
-              className="px-2 py-1 bg-white dark:bg-slate-800 hover:bg-purple-50 dark:hover:bg-purple-950/40 border border-slate-300 dark:border-slate-700 hover:border-purple-400 text-slate-700 dark:text-slate-200 rounded flex items-center gap-1 shadow-xs transition-colors"
+              className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-white dark:bg-slate-800 hover:bg-purple-50 dark:hover:bg-purple-950/40 border border-slate-300 dark:border-slate-700 hover:border-purple-400 text-slate-700 dark:text-slate-200 rounded flex items-center gap-1 shadow-xs transition-colors"
             >
-              <TestTube className="w-3 h-3 text-purple-500" />
-              <span>Write Unit Tests</span>
+              <TestTube className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-purple-500" />
+              <span>Tests</span>
             </button>
             <button
               onClick={() => handleExecute('refactor', 'Refactor this code for readability, performance, and best practices')}
               disabled={isLoading}
-              className="px-2 py-1 bg-white dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 border border-slate-300 dark:border-slate-700 hover:border-indigo-400 text-slate-700 dark:text-slate-200 rounded flex items-center gap-1 shadow-xs transition-colors"
+              className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-white dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 border border-slate-300 dark:border-slate-700 hover:border-indigo-400 text-slate-700 dark:text-slate-200 rounded flex items-center gap-1 shadow-xs transition-colors"
             >
-              <RefreshCw className="w-3 h-3 text-indigo-500" />
-              <span>Refactor & Clean</span>
+              <RefreshCw className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-indigo-500" />
+              <span>Refactor</span>
             </button>
             <button
               onClick={() => handleExecute('doc', 'Add complete comments and documentation to this code')}
               disabled={isLoading}
-              className="px-2 py-1 bg-white dark:bg-slate-800 hover:bg-teal-50 dark:hover:bg-teal-950/40 border border-slate-300 dark:border-slate-700 hover:border-teal-400 text-slate-700 dark:text-slate-200 rounded flex items-center gap-1 shadow-xs transition-colors"
+              className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-white dark:bg-slate-800 hover:bg-teal-50 dark:hover:bg-teal-950/40 border border-slate-300 dark:border-slate-700 hover:border-teal-400 text-slate-700 dark:text-slate-200 rounded flex items-center gap-1 shadow-xs transition-colors"
             >
-              <BookOpen className="w-3 h-3 text-teal-500" />
+              <BookOpen className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-teal-500" />
               <span>Document</span>
             </button>
           </div>
 
           {/* Prompt Input Box */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <div className="relative flex-1">
               <input
                 ref={inputRef}
@@ -283,24 +283,25 @@ export const CopilotBar: React.FC<CopilotBarProps> = ({
                     onClose();
                   }
                 }}
-                placeholder="Ask Copilot (e.g. 'Add input validation', 'Create a debounce utility', or 'Explain this logic')..."
-                className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 font-sans shadow-inner"
+                placeholder="Ask Copilot (e.g. 'Add input validation', 'Create a utility')..."
+                className="w-full px-2.5 sm:px-3 py-1.5 sm:py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-md sm:rounded-lg text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 font-sans shadow-inner"
               />
             </div>
             <button
               onClick={() => handleExecute('generate')}
               disabled={isLoading || (!prompt.trim() && !selectedText)}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-lg font-medium flex items-center gap-1.5 transition-all shadow-sm active:scale-95 shrink-0"
+              className="px-2.5 sm:px-4 py-1.5 sm:py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-md sm:rounded-lg text-xs sm:text-sm font-medium flex items-center gap-1 transition-all shadow-xs active:scale-95 shrink-0"
             >
               {isLoading ? (
                 <>
                   <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                  <span>Generating...</span>
+                  <span className="hidden sm:inline">Generating...</span>
                 </>
               ) : (
                 <>
                   <Send className="w-3.5 h-3.5" />
-                  <span>Ask Copilot</span>
+                  <span className="hidden sm:inline">Ask Copilot</span>
+                  <span className="sm:hidden">Ask</span>
                 </>
               )}
             </button>

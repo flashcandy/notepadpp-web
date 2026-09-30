@@ -253,8 +253,15 @@ export const AIAssistantDrawer: React.FC<AIAssistantDrawerProps> = ({
   };
 
   return (
-    <div className="w-full md:w-96 h-full bg-[#F5F4EC] dark:bg-[#151D28] border-l border-[#D4D0C8] dark:border-[#2D3748] flex flex-col shrink-0 select-none z-30 shadow-xl">
-      {/* Top Header */}
+    <>
+      {/* Mobile backdrop */}
+      <div 
+        className="fixed inset-0 bg-black/50 backdrop-blur-xs z-40 md:hidden"
+        onClick={onClose}
+      />
+
+      <div className="fixed md:relative inset-y-0 right-0 z-50 md:z-30 w-full sm:w-96 md:w-96 h-full bg-[#F5F4EC] dark:bg-[#151D28] border-l border-[#D4D0C8] dark:border-[#2D3748] flex flex-col shrink-0 select-none shadow-2xl animate-in slide-in-from-right-4 md:animate-none duration-150">
+        {/* Top Header */}
       <div className="flex items-center justify-between px-3 py-2 bg-[#0055EA] dark:bg-[#2563EB] text-white shrink-0">
         <div className="flex items-center gap-2">
           <Sparkles className="w-4 h-4 text-amber-300" />
@@ -490,5 +497,6 @@ export const AIAssistantDrawer: React.FC<AIAssistantDrawerProps> = ({
         </div>
       </div>
     </div>
+    </>
   );
 };

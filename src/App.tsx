@@ -788,22 +788,22 @@ export default function App() {
       )}
 
       {/* Top Windows Chrome Bar for Notepad++ branding & Mobile header */}
-      <div className="flex items-center justify-between px-2 py-1 bg-[#1E2530] text-slate-200 border-b border-[#2D3748] h-7 shrink-0 text-xs">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between px-2 py-1 bg-[#1E2530] text-slate-200 border-b border-[#2D3748] h-6.5 sm:h-7 shrink-0 text-xs">
+        <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
           {/* Notepad++ Chameleon Logo */}
           <img 
             src="/icon.svg" 
             alt="Notepad++" 
-            className="w-4 h-4 rounded-sm shadow-sm"
+            className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm shadow-xs shrink-0"
             onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }}
           />
-          <span className="font-semibold tracking-wide text-white">Notepad++</span>
+          <span className="font-semibold tracking-wide text-white text-[11px] sm:text-xs shrink-0">Notepad++</span>
           <span className="hidden sm:inline text-slate-400 text-[11px] truncate">
             — [{activeDocument.name}{activeDocument.isDirty ? ' *' : ''}]
           </span>
         </div>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1 shrink-0">
           {/* Mobile sidebar toggle button */}
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -816,9 +816,9 @@ export default function App() {
           {/* Quick AI button on header */}
           <button
             onClick={() => setIsAIAssistantOpen(!isAIAssistantOpen)}
-            className={`flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium transition-colors ${
+            className={`flex items-center gap-1 p-1 sm:px-2 sm:py-0.5 rounded text-[11px] font-medium transition-colors ${
               isAIAssistantOpen 
-                ? 'bg-purple-600 text-white shadow-sm' 
+                ? 'bg-purple-600 text-white shadow-xs' 
                 : 'bg-purple-900/70 text-purple-200 hover:bg-purple-800'
             }`}
             title="Toggle AI Code Assistant (Ctrl+Shift+A)"
@@ -830,7 +830,7 @@ export default function App() {
           {/* Quick Run button on header */}
           <button
             onClick={() => setIsLivePreviewOpen(true)}
-            className="flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-medium"
+            className="flex items-center gap-1 p-1 sm:px-2 sm:py-0.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-medium shadow-xs"
             title="Run Code Preview"
           >
             <Play className="w-3 h-3 fill-current" />
@@ -841,7 +841,7 @@ export default function App() {
           {(!isPWAInstalled || isInstallable) && (
             <button
               onClick={() => setIsPWAInstallModalOpen(true)}
-              className="flex items-center gap-1 px-2 py-0.5 rounded bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-medium"
+              className="flex items-center gap-1 p-1 sm:px-2 sm:py-0.5 rounded bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-medium shadow-xs"
               title="Install Notepad++ App"
             >
               <Download className="w-3 h-3" />
@@ -1195,9 +1195,9 @@ export default function App() {
 
       {/* Save to Local Disk Notification Toast */}
       {toastMessage && (
-        <div className="fixed bottom-9 right-6 z-50 flex items-center gap-2.5 bg-[#1A2230] text-white px-4 py-2.5 rounded-lg shadow-2xl border border-emerald-500/80 text-xs font-sans animate-in fade-in slide-in-from-bottom-3 duration-200">
+        <div className="fixed bottom-16 sm:bottom-9 left-4 right-4 sm:left-auto sm:right-6 z-50 flex items-center justify-center sm:justify-start gap-2.5 bg-[#1A2230] text-white px-4 py-2.5 rounded-lg shadow-2xl border border-emerald-500/80 text-xs font-sans animate-in fade-in slide-in-from-bottom-3 duration-200 pointer-events-none">
           <Save className="w-4 h-4 text-emerald-400 shrink-0" />
-          <span className="font-medium">{toastMessage}</span>
+          <span className="font-medium truncate">{toastMessage}</span>
         </div>
       )}
     </div>

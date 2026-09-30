@@ -45,8 +45,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const unsavedCount = documents.filter(d => d.isDirty).length;
 
   return (
-    <div className="w-64 bg-[#F5F4EC] dark:bg-[#151D28] border-r border-[#D4D0C8] dark:border-[#2D3748] flex flex-col h-full shrink-0 select-none z-20">
-      {/* Header */}
+    <>
+      {/* Mobile backdrop overlay */}
+      <div 
+        className="fixed inset-0 bg-black/50 backdrop-blur-xs z-40 md:hidden transition-opacity"
+        onClick={onClose}
+      />
+
+      <div className="fixed md:relative inset-y-0 left-0 z-50 md:z-20 w-72 max-w-[85vw] md:w-64 bg-[#F5F4EC] dark:bg-[#151D28] border-r border-[#D4D0C8] dark:border-[#2D3748] flex flex-col h-full shrink-0 select-none shadow-2xl md:shadow-none animate-in slide-in-from-left-4 md:animate-none duration-150">
+        {/* Header */}
       <div className="flex items-center justify-between px-3 py-1.5 bg-[#ECE9D8] dark:bg-[#1B2432] border-b border-[#D4D0C8] dark:border-[#2D3748]">
         <div className="flex items-center gap-1.5 font-semibold text-xs text-slate-800 dark:text-slate-200">
           <Folder className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
@@ -215,5 +222,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <p className="truncate">Drag & drop files anytime to load.</p>
       </div>
     </div>
+    </>
   );
 };

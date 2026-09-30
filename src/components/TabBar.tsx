@@ -89,14 +89,14 @@ export const TabBar: React.FC<TabBarProps> = ({
   };
 
   return (
-    <div className="relative flex items-center bg-[#E1DFD6] dark:bg-[#151B24] border-b border-[#B8B4A8] dark:border-[#2D3748] h-7 select-none overflow-hidden shrink-0">
+    <div className="relative flex items-center bg-[#E1DFD6] dark:bg-[#151B24] border-b border-[#B8B4A8] dark:border-[#2D3748] h-6.5 sm:h-7 select-none overflow-hidden shrink-0">
       {/* Scroll Left Button if needed */}
       <button 
         onClick={() => scrollTabs('left')}
         className="px-1 h-full hover:bg-black/10 dark:hover:bg-white/10 text-gray-600 dark:text-gray-400 flex items-center justify-center shrink-0"
         title="Scroll Tabs Left"
       >
-        <ChevronLeft className="w-3.5 h-3.5" />
+        <ChevronLeft className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
       </button>
 
       {/* Tabs container with double click for new tab */}
@@ -118,9 +118,9 @@ export const TabBar: React.FC<TabBarProps> = ({
               key={doc.id}
               onClick={() => onSelectTab(doc.id)}
               onContextMenu={(e) => handleContextMenu(e, doc.id)}
-              className={`group relative flex items-center gap-1.5 px-2.5 h-[26px] text-xs cursor-pointer border-t border-x rounded-t transition-colors shrink-0 max-w-[200px] ${
+              className={`group relative flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2.5 h-[22px] sm:h-[26px] text-[11px] sm:text-xs cursor-pointer border-t border-x rounded-t transition-colors shrink-0 max-w-[130px] sm:max-w-[200px] ${
                 isActive
-                  ? 'bg-white dark:bg-[#1E293B] text-slate-900 dark:text-slate-100 border-[#9BA0A5] dark:border-[#38BDF8]/40 border-b-transparent font-medium shadow-sm z-10'
+                  ? 'bg-white dark:bg-[#1E293B] text-slate-900 dark:text-slate-100 border-[#9BA0A5] dark:border-[#38BDF8]/40 border-b-transparent font-medium shadow-xs z-10'
                   : 'bg-[#ECE9D8] dark:bg-[#1A222D] text-slate-600 dark:text-slate-400 border-transparent hover:bg-[#F5F4EC] dark:hover:bg-[#202B39]'
               }`}
               title={`${doc.name} ${isDirty ? '(Unsaved)' : ''}`}
@@ -136,7 +136,7 @@ export const TabBar: React.FC<TabBarProps> = ({
                   }
                 }}
               >
-                <svg className="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none">
+                <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5" viewBox="0 0 16 16" fill="none">
                   {/* Floppy outline */}
                   <path 
                     d="M2 1h9l3 3v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" 
@@ -163,7 +163,7 @@ export const TabBar: React.FC<TabBarProps> = ({
                     if (e.key === 'Enter') submitRename();
                     if (e.key === 'Escape') setRenamingDocId(null);
                   }}
-                  className="bg-white dark:bg-slate-800 text-xs px-1 border border-blue-500 rounded outline-none w-24"
+                  className="bg-white dark:bg-slate-800 text-[11px] sm:text-xs px-1 border border-blue-500 rounded outline-none w-20 sm:w-24"
                   onClick={(e) => e.stopPropagation()}
                 />
               ) : (
@@ -172,7 +172,7 @@ export const TabBar: React.FC<TabBarProps> = ({
                     e.stopPropagation();
                     startRename(doc);
                   }}
-                  className="truncate text-[11px] leading-tight"
+                  className="truncate text-[10px] sm:text-[11px] leading-tight"
                 >
                   {doc.name}
                 </span>
@@ -182,9 +182,9 @@ export const TabBar: React.FC<TabBarProps> = ({
               <button
                 onClick={(e) => onCloseTab(doc.id, e)}
                 title="Close Tab (Ctrl+W)"
-                className="opacity-60 group-hover:opacity-100 hover:bg-red-500 hover:text-white p-0.5 rounded text-gray-500 dark:text-gray-400 shrink-0 transition-opacity ml-1"
+                className="opacity-70 group-hover:opacity-100 hover:bg-red-500 hover:text-white p-0.5 rounded text-gray-500 dark:text-gray-400 shrink-0 transition-opacity ml-0.5 sm:ml-1"
               >
-                <X className="w-3 h-3" />
+                <X className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
               </button>
             </div>
           );
@@ -194,9 +194,9 @@ export const TabBar: React.FC<TabBarProps> = ({
         <button
           onClick={onNewTab}
           title="New Tab (Ctrl+N)"
-          className="flex items-center justify-center w-6 h-[24px] px-1 hover:bg-[#D4D0C8] dark:hover:bg-[#2D3748] rounded text-slate-700 dark:text-slate-300 transition-colors shrink-0 mb-[1px]"
+          className="flex items-center justify-center w-5 sm:w-6 h-[20px] sm:h-[24px] px-1 hover:bg-[#D4D0C8] dark:hover:bg-[#2D3748] rounded text-slate-700 dark:text-slate-300 transition-colors shrink-0 mb-[1px]"
         >
-          <Plus className="w-3.5 h-3.5" />
+          <Plus className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
         </button>
       </div>
 
@@ -206,7 +206,7 @@ export const TabBar: React.FC<TabBarProps> = ({
         className="px-1 h-full hover:bg-black/10 dark:hover:bg-white/10 text-gray-600 dark:text-gray-400 flex items-center justify-center shrink-0"
         title="Scroll Tabs Right"
       >
-        <ChevronRight className="w-3.5 h-3.5" />
+        <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
       </button>
 
       {/* Tab Context Menu */}

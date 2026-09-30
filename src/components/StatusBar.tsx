@@ -40,14 +40,15 @@ export const StatusBar: React.FC<StatusBarProps> = ({
   const langObj = getLanguageById(currentLanguage);
 
   return (
-    <div className="relative flex items-center bg-[#ECE9D8] dark:bg-[#181F2A] border-t border-[#D4D0C8] dark:border-[#2D3748] text-slate-800 dark:text-slate-300 text-[11px] font-sans h-6 px-1 select-none shrink-0 overflow-x-auto scrollbar-none">
+    <div className="relative flex items-center bg-[#ECE9D8] dark:bg-[#181F2A] border-t border-[#D4D0C8] dark:border-[#2D3748] text-slate-800 dark:text-slate-300 text-[10px] sm:text-[11px] font-sans h-5.5 sm:h-6 px-1 select-none shrink-0 overflow-x-auto scrollbar-none">
       {/* Panel 1: Cursor line & col */}
-      <div className="px-2 py-0.5 border-r border-[#D4D0C8] dark:border-[#2D3748] whitespace-nowrap min-w-[130px] font-mono tabular-nums">
-        Ln : {cursorInfo.lineNumber} , Col : {cursorInfo.column} , Sel : {cursorInfo.selectionLength}
+      <div className="px-1.5 sm:px-2 py-0.5 border-r border-[#D4D0C8] dark:border-[#2D3748] whitespace-nowrap min-w-[70px] sm:min-w-[130px] font-mono tabular-nums">
+        <span className="sm:hidden">L:{cursorInfo.lineNumber} C:{cursorInfo.column}</span>
+        <span className="hidden sm:inline">Ln : {cursorInfo.lineNumber} , Col : {cursorInfo.column} , Sel : {cursorInfo.selectionLength}</span>
       </div>
 
-      {/* Panel 2: Length and Lines */}
-      <div className="px-2 py-0.5 border-r border-[#D4D0C8] dark:border-[#2D3748] whitespace-nowrap min-w-[140px] font-mono tabular-nums">
+      {/* Panel 2: Length and Lines (Hidden on small mobile) */}
+      <div className="hidden sm:block px-2 py-0.5 border-r border-[#D4D0C8] dark:border-[#2D3748] whitespace-nowrap min-w-[140px] font-mono tabular-nums">
         Length : {cursorInfo.totalLength.toLocaleString()}  Lines : {cursorInfo.totalLines.toLocaleString()}
       </div>
 
@@ -55,16 +56,17 @@ export const StatusBar: React.FC<StatusBarProps> = ({
       <button
         onClick={() => onChangeLineEnding(lineEnding === 'CRLF' ? 'LF' : 'CRLF')}
         title="Click to toggle Windows (CRLF) / Unix (LF)"
-        className="px-2 py-0.5 border-r border-[#D4D0C8] dark:border-[#2D3748] whitespace-nowrap hover:bg-black/10 dark:hover:bg-white/10 cursor-pointer"
+        className="px-1.5 sm:px-2 py-0.5 border-r border-[#D4D0C8] dark:border-[#2D3748] whitespace-nowrap hover:bg-black/10 dark:hover:bg-white/10 cursor-pointer"
       >
-        {lineEnding === 'CRLF' ? 'Windows (CRLF)' : 'Unix (LF)'}
+        <span className="sm:hidden">{lineEnding}</span>
+        <span className="hidden sm:inline">{lineEnding === 'CRLF' ? 'Windows (CRLF)' : 'Unix (LF)'}</span>
       </button>
 
       {/* Panel 4: Encoding */}
       <button
         onClick={() => onChangeEncoding(encoding === 'UTF-8' ? 'ANSI' : 'UTF-8')}
         title="Click to toggle UTF-8 / ANSI"
-        className="px-2 py-0.5 border-r border-[#D4D0C8] dark:border-[#2D3748] whitespace-nowrap hover:bg-black/10 dark:hover:bg-white/10 cursor-pointer"
+        className="px-1.5 sm:px-2 py-0.5 border-r border-[#D4D0C8] dark:border-[#2D3748] whitespace-nowrap hover:bg-black/10 dark:hover:bg-white/10 cursor-pointer"
       >
         {encoding}
       </button>
@@ -73,7 +75,7 @@ export const StatusBar: React.FC<StatusBarProps> = ({
       <button
         onClick={onToggleInsertMode}
         title="Click to toggle INS / OVR"
-        className="px-2 py-0.5 border-r border-[#D4D0C8] dark:border-[#2D3748] whitespace-nowrap font-mono hover:bg-black/10 dark:hover:bg-white/10 cursor-pointer"
+        className="px-1.5 sm:px-2 py-0.5 border-r border-[#D4D0C8] dark:border-[#2D3748] whitespace-nowrap font-mono hover:bg-black/10 dark:hover:bg-white/10 cursor-pointer"
       >
         {insertMode}
       </button>
@@ -83,14 +85,14 @@ export const StatusBar: React.FC<StatusBarProps> = ({
         <button
           onClick={() => setShowLangMenu(!showLangMenu)}
           title="Click to change programming syntax"
-          className="px-2 py-0.5 border-r border-[#D4D0C8] dark:border-[#2D3748] whitespace-nowrap hover:bg-[#316AC5] hover:text-white dark:hover:bg-[#2563EB] cursor-pointer font-medium"
+          className="px-1.5 sm:px-2 py-0.5 border-r border-[#D4D0C8] dark:border-[#2D3748] whitespace-nowrap hover:bg-[#316AC5] hover:text-white dark:hover:bg-[#2563EB] cursor-pointer font-medium"
         >
           {langObj.name.split('(')[0].trim()}
         </button>
 
         {showLangMenu && (
           <div 
-            className="fixed bottom-7 left-1/3 bg-white dark:bg-[#1E2530] border border-[#7F9DB9] dark:border-[#374151] shadow-2xl rounded max-h-72 w-56 overflow-y-auto py-1 z-50 text-xs"
+            className="fixed bottom-7 left-2 right-2 sm:left-auto sm:right-auto sm:w-56 bg-white dark:bg-[#1E2530] border border-[#7F9DB9] dark:border-[#374151] shadow-2xl rounded max-h-60 sm:max-h-72 overflow-y-auto py-1 z-50 text-xs"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="px-3 py-1 font-semibold text-slate-500 border-b border-gray-200 dark:border-gray-700 text-[10px] uppercase">

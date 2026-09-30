@@ -28,6 +28,17 @@ export const EditorPane = forwardRef<EditorPaneHandle, EditorPaneProps>(({
   const editorRef = useRef<monacoEditor.editor.IStandaloneCodeEditor | null>(null);
   const monacoRef = useRef<Monaco | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = React.useState<boolean>(
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  );
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const langObj = getLanguageById(file.language);
 
@@ -264,13 +275,18 @@ export const EditorPane = forwardRef<EditorPaneHandle, EditorPaneProps>(({
         beforeMount={handleEditorWillMount}
         onMount={handleEditorMount}
         options={{
-          fontSize: settings.fontSize,
-          wordWrap: settings.wordWrap ? 'on' : 'off',
-          minimap: { enabled: settings.showMinimap },
+          fontSize: isMobile ? Math.min(settings.fontSize, 12) : settings.fontSize,
+          lineHeight: isMobile ? 18 : 20,
+          wordWrap: isMobile ? 'on' : settings.wordWrap ? 'on' : 'off',
+          minimap: { enabled: isMobile ? false : settings.showMinimap },
           renderWhitespace: settings.showWhitespace ? 'all' : 'none',
           tabSize: settings.tabSize,
           insertSpaces: settings.insertSpaces,
           lineNumbers: settings.lineNumbers ? 'on' : 'off',
+          lineNumbersMinChars: isMobile ? 2 : 4,
+          glyphMargin: false,
+          folding: !isMobile,
+          lineDecorationsWidth: isMobile ? 0 : 8,
           readOnly: file.readOnly,
           automaticLayout: true,
           scrollBeyondLastLine: false,
@@ -278,8 +294,12 @@ export const EditorPane = forwardRef<EditorPaneHandle, EditorPaneProps>(({
           cursorBlinking: 'smooth',
           fontLigatures: true,
           fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace",
-          padding: { top: 6, bottom: 6 },
+          padding: { top: isMobile ? 3 : 6, bottom: isMobile ? 12 : 6 },
           fixedOverflowWidgets: true,
+          scrollbar: {
+            verticalScrollbarSize: isMobile ? 5 : 10,
+            horizontalScrollbarSize: isMobile ? 5 : 10,
+          },
         }}
       />
     </div>
